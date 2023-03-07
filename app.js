@@ -4,7 +4,7 @@ require('dotenv').config()
 
 app.use(express.json())
 
-const PUERTO = process.env.PUERTO || 3000
+const PUERTO = process.env.PUERTO || 3001
 
 app.listen(PUERTO, () => {
     console.log(`el servidor esta escuchando en el puerto ${PUERTO}....`)
