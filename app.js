@@ -1,8 +1,10 @@
 const express = require('express')
 const app = express()
+const cors = require('cors')
 require('dotenv').config()
 
 app.use(express.json())
+app.use(cors())
 
 const PUERTO = process.env.PUERTO || 3001
 
@@ -40,7 +42,7 @@ app.get('/:id', (req, res) => {
                 return
             }
 
-            res.status(200).send(results)
+            res.status(200).send(results[0])
         }
     ) 
 })
@@ -60,7 +62,14 @@ app.post('/api/review', (req, res) =>  {
                 return
             }
 
-            res.send(results)
+            let r = {
+                id_form: results.insertId, 
+                user_name: user_name,
+                title: title,   
+                post_text: post_text,
+            }
+
+            res.send(r)
         }
     )
 })
@@ -101,6 +110,16 @@ app.delete('/api/review/:id', (req, res) => {
 
             res.status(200).end()
         }
-    
     )
+
+    
 })
+
+function delay(ms) {
+    const date = Date.now();
+    let currentDate = null;
+
+    do {
+        currentDate = Date.now();
+    } while (currentDate - date < ms);
+}
